@@ -1,0 +1,5 @@
+
+docker composer up -d
+docker ps
+docker down -a
+docker logs
