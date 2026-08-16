@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: superset_postgres
+    environment:
+      POSTGRES_DB: analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    depends_on:
+      - postgres
+    environment:
+      - SUPERSET_SECRET_KEY=your_secret_key
+    ports:
+      - "8088:8088"
+    command: >
+      /bin/sh -c "3
+      superset db upgrade &&
+      superset fab create-admin --username admin --firstname Admin --lastname User--email admin@example.com --password admin &&
+      superset init &&
+      superset run -h 0.0.0.0 -p 8088
+      "
+
+volumes:
+  postgres_data:
