@@ -1,0 +1,10 @@
+
+# Java JDK - installed locally, don't commit
+Java/
+
+# Local Java JDK
+Java/
+# Environment / secrets
+.env
+.env.*
+!.env.example
